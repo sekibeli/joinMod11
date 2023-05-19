@@ -4,7 +4,7 @@
  * fetches the JSON from backend and put it in the arrays tasks, contacts, categories
  */
 async function init() {
-    setURL('https://gruppe-5008.developerakademie.net/smallest_backend_ever');
+    setURL('https://julia-georgiew.developerakademie.net/joinsingle/smallest_backend_ever');
     await downloadFromServer();
     tasks = JSON.parse(backend.getItem('tasks')) || [];
     contacts = JSON.parse(backend.getItem('contacts')) || [];

@@ -41,7 +41,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         header("Access-Control-Allow-Origin: *");
 
         $subject = "Reset your password";
-        $headers = "From: noreply@join-team.de";
+        $headers = "From: java2011@me.com";
 
         mail($recipient, $subject, $_POST['message'], $headers);
         header("Location: " . $redirect); 
