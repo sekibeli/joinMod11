@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join | Reset your password</title>
+    <script src="mini_backend.js"></script>
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <link rel="icon" href="assets/img/Capa_icon.png">
+    <link rel="stylesheet" href="styles/index.css">
+    <script src="js/script.js"></script>
+    <script src="js/index.js"></script>
+
+</head>
+
+<body onload="init()">
+
+
+    <div class="container-without">
+        <div class="logo-box-without">
+            <img src="assets/img/Capa_icon.png" alt="">
+        </div>
+        <div class="sign-in" id="log-in-content">
+            <div class="sign-box" id="sign-box">
+                <span class="login-headline" id="login-headline">Reset your password</span>
+                <div class="underline-login" id="login-underline">
+                </div>
+                <div class="login-form">
+                    <div class="login-box">
+                        <input type="password" required minlength="5" placeholder="New password" id="new-password">
+                    </div>
+                    <div class="error-message-login" id="error-message-login">
+                        email or password is incorrect
+                    </div>
+                    <div class="login-box">
+                        <input type="password" required minlength="5" placeholder="Confirm password" id="new-password-confirmed">
+                    </div>
+                    <div class="login-and-guest">
+                        <button onclick="resetPassword()" class="input-submit">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="you-reset-box" id="you-reset">
+            <span>You reset your password</span>
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <link rel="stylesheet" href="styles/summary.css">
+    <script src="js/summary.js"></script>
+    <script src="./mini_backend.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="styles/sidebar.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <title>Join | summary</title>
+    <link rel="icon" href="assets/img/Capa_icon.png">
+</head>
+
+<body onload="includeHTML('summary'), init(), getSummary()">
+  
+    <div w3-include-html="templates/sidebar.html"></div>
+    <div w3-include-html="templates/header.html"></div>
+
+    <div class="padding-header-side summary-main" id="summary-content">    
+    </div>
+
+
+</body>
+
+</html>

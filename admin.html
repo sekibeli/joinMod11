@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin page</title>
+    <script src="mini_backend.js"></script>
+    <script src="js/script.js"></script>
+</head>
+<style>
+    body{
+        height: 100vh;
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    input{
+        height: 30px;
+        border-radius: 15px;
+    }
+    button{
+        height: 30px;
+        border-radius: 10px;
+    }
+    span{
+        display: none;
+        font-size: 25;
+        
+    }
+
+</style>
+<script>
+    function deleteItem(){
+        let pos = document.getElementById('array-position').value;
+        let arrayName = document.getElementById('array-name').value;
+        deleteFromJson(`${pos}`, `${arrayName}`);
+    }
+    async function deleteFromJson(position, arrayName){
+        if (arrayName == 'users') {
+            users.splice(position, 1)
+            await backend.setItem('users', JSON.stringify(users));
+            document.getElementById('deleted-message').style.display = "flex";
+        }
+        if (arrayName == 'contacts') {
+            contacts.splice(position, 1)
+            await backend.setItem('contacts', JSON.stringify(contacts));
+            document.getElementById('deleted-message').style.display = "flex";
+        }
+        if (arrayName == 'tasks'){
+            tasks.splice(position, 1)
+            await backend.setItem('tasks', JSON.stringify(tasks));
+            document.getElementById('deleted-message').style.display = "flex";
+        }
+        if (arrayName == 'categories'){
+            categories.splice(position, 1)
+            await backend.setItem('categories', JSON.stringify(categories));
+            document.getElementById('deleted-message').style.display = "flex";
+        }
+    }
+    
+</script>
+
+<body onload="init()">
+    <div>
+        <input type="text" placeholder="name of array" id="array-name">
+        <input type="text" placeholder="position to delete" id="array-position">
+        <button onclick="deleteItem()">Delete</button>
+        <span id="deleted-message">Item deleted</span>
+    </div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./mini_backend.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/add_task_templates.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/board_render.js"></script>
+    <script src="js/board_templates.js"></script>
+    <script src="js/add_task.js"></script>
+    <link rel="stylesheet" href="styles/sidebar.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/board.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/add_task.css">
+    <link rel="stylesheet" href="styles/colors.css">
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <link rel="icon" href="assets/img/Capa_icon.png">
+    <title>Join &vert; Board</title>
+</head>
+
+<body onload="includeHTML('board'), delay()">
+    <div class="editTask d-none" id="editTask"></div>
+
+    <div w3-include-html="templates/sidebar.html"></div>
+    <div w3-include-html="templates/header.html"></div>
+    <div class="test"></div>
+    <div class="makeBgDarker d-none" id="makeBgDarker" onclick="closeItQuick()"></div>
+    <div class="overlayTask d-none" id="overlayTask"></div>
+    <div class="main" id="main">
+        <div class="contentBoard">
+            <div class="boardHeader">
+                <div class="kanban-header-headline d-none" id="headline">
+                    Kanban Projekt Management Tool
+                </div>
+                <h1>Board</h1>
+                <div class="boardHeader_right">
+                    <div class="inputField">
+                        <input id="search" onkeyup="filterTasks()" type="text" placeholder="Find Task">
+                        <div class="right">
+                            <div class="devider"></div>
+                            <img class="picLupe" id="picLupe" src="assets/img/lupe.svg">
+                        </div>
+                    </div>
+                    <div id="createTaskBTN_area"><button class="btn" id="createTaskBTN"
+                            onclick="testRenderNewTask('todo')">Add Task &#xFF0B;</button><button class="btn"
+                            id="mobileCreateTaskBTN" onclick="testRenderNewTask('todo')"><img
+                                src="assets/img/addTaskMobile.svg"></button></div>
+                </div>
+            </div>
+            <div class="newTask d-none" id="newTask"></div>
+            <div class="cols" id="cols">
+                <div class="col">
+                    <div class="headline">
+                        <h3>To do</h3><img src="assets/img/plusbutton.svg" id="clickMe" onclick="testRenderNewTask('todo')"
+                            alt="">
+                    </div>
+                    <div class="col" id="todo" ondrop="setStatus('todo')" ondragover="allowDrop(event)"></div>
+                </div>
+                <div class="col">
+                    <div class="headline">
+                        <h3>In Progress</h3><img src="assets/img/plusbutton.svg" id="clickMe"
+                            onclick="testRenderNewTask('inProgress')" alt="">
+                    </div>
+                    <div class="col" id="inProgress" ondrop="setStatus('inProgress')" ondragover="allowDrop(event)">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="headline">
+                        <h3>Awaiting Feedback</h3><img src="assets/img/plusbutton.svg" id="clickMe"
+                            onclick="testRenderNewTask('awaitingFeedback')" alt="">
+                    </div>
+                    <div class="col" id="awaitingFeedback" ondrop="setStatus('awaitingFeedback')"
+                        ondragover="allowDrop(event)"></div>
+                </div>
+                <div class="col">
+                    <div class="headline">
+                        <h3>Done</h3><img src="assets/img/plusbutton.svg" id="clickMe" onclick="testRenderNewTask('done')"
+                            alt="">
+                    </div>
+                    <div class="col" id="done" ondrop="setStatus('done')" ondragover="allowDrop(event)"></div>
+                </div>
+            </div>
+        </div>
+        <div w3-include-html="templates/add_task_form.html" class="containerTasks overlay d-none" id="addTaskForm">
+        </div>
+        <div id="infoText" class="d-none"><span>Task added to board</span><img src="assets/img/board_icon.svg"></div>
+</body>
