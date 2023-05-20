@@ -273,6 +273,43 @@ function animateCloseContact(randomcolor, initiales){
         }, 250);
     
 }
+/**
+ * Function which renders the contacts with one already chosen
+ */
+function renderContactsAssignToContacts(alreadyChosen) {
+    let check;
+    console.log('hierbinich');
+    document.getElementById('optionsUser').innerHTML = ``;
+    for (let index = 0; index < contacts.length; index++) {
+      const element = contacts[index];
+      if(index == alreadyChosen) { check = 'checked'
+      break;
+    }
+    else {
+      check = '';
+    }
+      document.getElementById('optionsUser').innerHTML += renderContactsAssignContactsHTML(index, contacts[index], check);
+    }
+  }
+
+
+function renderContactsAssignBoard(i) {
+    let check;
+    document.getElementById('optionsUser').innerHTML = ``;
+    for (let index = 0; index < contacts.length; index++) {
+      let contact = contacts[index];
+      for (let a = 0; a < tasks[i].assignedTo.length; a++) {
+        if (contact.firstname + ' ' + contact.lastname == tasks[i].assignedTo[a].name) {
+          check = 'checked'
+          break;
+        }
+        else {
+          check = '';
+        }
+      }
+      document.getElementById('optionsUser').innerHTML += renderContactsAssignBoardHTML(i, index, contact, check);
+    }
+  }
 
 
 function backToContactListMobile(){

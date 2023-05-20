@@ -5,18 +5,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="title">Join &vert; Contacts</title>
+    <title>Join &vert; Contacts</title>
     <link rel="stylesheet" href="assets/fonts/fonts.css">
     <link rel="stylesheet" href="styles/contact.css">
     <link rel="stylesheet" href="styles/sidebar.css">
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/contact_addtask.css">
     <link rel="stylesheet" href="styles/colors.css">
+    <link rel="stylesheet" href="styles/board.css">
+    <link rel="stylesheet" href="styles/add_task.css">
     <script src="js/contact.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/board_render.js"></script>
+    <script src="js/board.js"></script>
+
+       <script src="js/board_templates.js"></script>
     <script src="js/contact_templates.js"></script>
-    <script src="js/contact_addtask.js"></script>
-    <script src="js/contact_addtask_templates.js"></script>
+    <!-- <script src="js/contact_addtask.js"></script> -->
+    <script src="js/add_task.js"></script>
+    <script src="js/add_task_templates.js"></script>
+    <!-- <script src="js/contact_addtask_templates.js"></script> -->
     <script src="mini_backend.js"></script>
     <link rel="icon" href="assets/img/Capa_icon.png">
 </head>
@@ -32,6 +40,8 @@
 
     <div class="container" id="container-content">
     </div>
+    <div class="makeBgDarker d-none" id="makeBgDarker" onclick="closeItQuick()"></div>
+    <div class="overlayTask d-none" id="overlayTask"></div>
     <div class="main2" id="main-contact">
         
         <div class="new-contact-overlay-box d-none" id="overlay-box">
@@ -50,6 +60,7 @@
             <div class="contact-list-box" id="contact-list-content">
             </div>
             <div class="contact-main-box" id="contact-main-box">
+                <div class="newTask d-none" id="newTask"></div>
                 <div class="contact-main-content" id="show-contact-content">
                     <div class="contact-headline-box">
                         <span class="kanban-text">Kanban Projekt Management Tool</span>
@@ -65,6 +76,7 @@
         <div class="create-new-message" id="create-success-message">
             <span id="message-text-contacts">Contact successfully created</span>
         </div>
+        <div id="infoText" class="d-none"><span>Task added to board</span><img src="assets/img/board_icon.svg"></div>
     </div>
 </body>
 

@@ -196,7 +196,7 @@ h3 {
 }
 
 .overlayTask {
-    display: flex;
+    /* display: flex; */
     position: absolute;
     top: 70px;
     left: 35%;
@@ -436,7 +436,7 @@ b {
 
 .newTask {
     position: absolute;
-    display: flex;
+    /* display: flex; */
     gap: 30px;
     left: 55%;
     top: 50%;

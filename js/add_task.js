@@ -203,6 +203,38 @@ function renderTheContacts() {
   setTimeout(renderContactsAssignTo, 300);
 }
 
+function renderTheContactsInContacts(alreadyChosen) {
+  setTimeout(renderContactsAssignToContacts, 300, alreadyChosen);
+}
+
+function renderContactsAssignToContacts(alreadyChosen) {
+  let check;
+  console.log('hierbinich');
+  document.getElementById('optionsUser').innerHTML = ``;
+  // for (let index = 0; index < contacts.length; index++) {
+  //   const element = contacts[index];
+  //   if(index == alreadyChosen) { check = 'checked'
+  //   break;
+  // }
+  // else {
+  //   check = '';
+  // }
+  for (let index = 0; index < contacts.length; index++) {
+    // let contact = contacts[index];
+   
+      // if (contact.firstname + ' ' + contact.lastname == tasks[i].assignedTo[a].name) 
+      if(index == alreadyChosen)
+      {
+        check = 'checked';
+        
+      }
+      else {
+        check = '';
+      }
+    
+    document.getElementById('optionsUser').innerHTML += renderContactsAssignContactsHTML(index, contacts[index], check);
+  }
+}
 
 function renderContactsAssignTo() {
   document.getElementById('optionsUser').innerHTML = ``;

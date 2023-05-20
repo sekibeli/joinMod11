@@ -176,7 +176,30 @@ function testRenderNewTask(para) {
     renderTheContacts();
     renderDate();
 }
+/**
+ * 
+ * @param {*} para status
+ * @param {*} contact contact in which the task is created
+ */
+function renderNewTaskContact(para, contact) {
+    document.getElementById('newTask').innerHTML = ``;
+    freezeBackground();
+    showDarkOverlay();
+    document.getElementById('newTask').classList.remove('d-none');
+    document.getElementById('overlayTask').innerHTML = ``;
+    document.getElementById('newTask').innerHTML += testRenderNewTaskHTML(para);
+   
+    // renderContactsAssignBoard(i);
+    renderDate();
+   
+    let indi;
+    contacts.find(function(item,i) {
+        if(item.id === contact)
+        indi = i;});
+        renderTheContactsInContacts(indi);
+    chooseTheContact(para, indi);
 
+}
 
 function filterTheAssignedPeople(i) {
     document.getElementById(`showAssignedPeople`).innerHTML = ``;

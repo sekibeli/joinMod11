@@ -484,6 +484,10 @@ body {
 .kanban-text{
     display: none;
 }
+.addTaskContact {
+    color: rgb(11, 173, 221);
+    cursor: pointer;
+}
 /* ################################## for mobiles ############## */
 
 @media (max-width: 1200px){

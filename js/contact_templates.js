@@ -43,6 +43,7 @@ function showContact(firstname, lastname, initiales, email, color, phone, index,
                 </div>
                 <div class="name-add-task">
                     <span class="name-main">${firstname} ${lastname}</span>
+                    <span class="addTaskContact" onclick="renderNewTaskContact('todo',${id})">&#10011; Add Task</span>
                 </div>
             </div>
             <div class="contact-information-box">

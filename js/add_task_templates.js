@@ -44,6 +44,14 @@ function renderContactsAssignBoardHTML(i, index, contact, check) {
     </div>`;
 }
 
+function renderContactsAssignContactsHTML(index, contact, check) {
+  return `
+      <div class="checkbox" id="${index}">
+      <label for="user${index}">${contacts[index].firstname} ${contacts[index].lastname}</label>
+      <input type="checkbox" name="assignedTo" onchange="chooseTheContact(-1,${index})" value="${contact.id}" id="user${index}" ${check}>
+    </div>`;
+}
+
 function renderContactsAssignAddTaskHTML(index, element) {
   return `
       <div class="checkbox" id="${index}">
