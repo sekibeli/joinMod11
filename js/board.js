@@ -157,7 +157,7 @@ function changeTheLook() {
 
 
 function createSaveButton(i) {
-    document.getElementById('BTN').innerHTML = `<button class="btn" id="ok" onclick="saveExistingTask(${i})">Ok<img src=""></button>`;
+    document.getElementById('BTN').innerHTML = `<button class="btn" id="ok" onclick="saveExistingTask(${i})">Ok <img src="assets/img/akar-icons_check.svg"><img src=""></button>`;
 }
 
 
@@ -234,7 +234,11 @@ function changeTheExistingTask(i) {
     return task;
 }
 
-
+/**
+ * 
+ * @param {*} i index of the active Task
+ * @returns 
+ */
 function getExistingSubtasks(i) {
     data = tasks[i].subtasks.length;
     if (data < subtasks_namen.length) data = subtasks_namen.length;
@@ -249,6 +253,10 @@ function getExistingSubtasks(i) {
     return new_subtasks;
 }
 
+/**
+ * 
+ * @param {*} i the index of the active Task
+ */
 function readPrio(i) {
     if (tasks[i].priority == 'urgent') renderPrioButton(renderUrgentHTML2());
     else if (tasks[i].priority == 'medium') renderPrioButton(renderMediumHTML2());
@@ -261,7 +269,9 @@ function closeIt() {
     document.location = "../board.html";
 }
 
-
+/**
+ * Close the overlay AddTask without saving
+ */
 function closeOverlayAddTask() {
     document.getElementById('makeBgDarker').classList.add('d-none');
     document.getElementById('newTask').classList.add('d-none');
@@ -280,19 +290,26 @@ function loosenBackground() {
     document.documentElement.style.overflow = 'auto';
     document.body.scroll = "yes";
 }
-
+/**
+ * 
+ * @param {*} i index of subtask of the interim subtask-array
+ */
 function deleteTheSubtask(i) {
     subtasks_interim.splice(i, 1);
     showSubtasks(subtasks_interim);
 }
 
-
+/**
+ * Make background dark and show the addTaskForm
+ */
 function showAddTaskOverlay() {
     showDarkOverlay();
     document.getElementById('addTaskForm').classList.remove('d-none');
 }
 
-
+/**
+ * search function which only shows the tasks which own the search expression
+ */
 function filterTasks() {
     let search = document.getElementById('search').value;
     search = search.toLowerCase();
@@ -309,7 +326,10 @@ function filterTasks() {
         }
     }
 }
-
+/**
+ * 
+ * @param {*} i index of the task which is deleted
+ */
 function deleteTask(i) {
     tasks.splice(i, 1);
     saveTasks();
@@ -323,6 +343,15 @@ function renderDate() {
     currentDate.setAttribute('min', today);
 }
 
+/**
+ * 
+ * @param {*} param1 id-Feld
+ * @param {*} param2 id-Feld
+ * @param {*} param3 id-Feld
+ * @param {*} param4 id-Feld
+ * 
+ * It makes the borders round or square dependig on if the menu is open or close
+ */
 function toggleIt(param1, param2, param3, param4) {
     let seeCat = document.getElementById(param1);
     seeCat.classList.toggle('d-none');
@@ -341,11 +370,16 @@ function toggleIt(param1, param2, param3, param4) {
     renderCategories();
 }
 
-
+/**
+ * Displays the dark overlay to show AddTask or something like that
+ */
 function showDarkOverlay() {
     document.getElementById('makeBgDarker').classList.remove('d-none');
 }
 
+/**
+ * Eventlistener to close the menu when clicking outside of it
+ */
 window.addEventListener('click', function (e) {
     if (document.getElementById('newCateg')) {
         if (!document.getElementById('newCateg').contains(e.target) && (!document.getElementById('toggleID').contains(e.target)) && (!this.document.getElementById('optionsUser').contains(e.target))) {

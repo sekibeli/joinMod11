@@ -141,7 +141,29 @@ function checkIfLetterIsUsedForName(letter){
         neededLetters.splice(letterposition, 1);
     }
 }
-
+async function saveEditedContact(color, index){
+    let newName = document.getElementById('new-contact-name').value;
+    let newMail = document.getElementById('new-contact-mail').value;
+    let newPhone = document.getElementById('new-contact-phone').value;
+    let letter = contacts[index].lastname.charAt(0);
+    checkIfLetterIsUsedForName(letter);
+    let newAndOldID = contacts[index]['id'];
+    contacts.splice(index, 1);
+    let newNamesplitted = newName.split(' ');
+    if (newNamesplitted.length == 1) {
+        showWarningMessageContact();
+        return;
+     }
+    let firstname = newNamesplitted[0].toUpperCase().charAt(0) + newNamesplitted[0].substring(1);
+    let lastname = newNamesplitted[1].toUpperCase().charAt(0) + newNamesplitted[1].substring(1);
+    let initials = firstname.charAt(0) + lastname.charAt(0); 
+    let newContact = {'firstname': firstname, 'lastname': lastname, 'email': newMail, 'phone': newPhone, 'initials': initials, 'color': color, 'id': newAndOldID};
+    contacts.push(newContact);
+    await saveContactsToBackend('edited');
+    showContact(firstname, lastname, initials, newMail, color, newPhone, index, newAndOldID);
+    clearAndPush(lastname, color, initials);
+    renderContacts();
+}
 
 async function saveEditedContact(color, index){
     let newName = document.getElementById('new-contact-name').value;
@@ -201,7 +223,7 @@ function showWarningMessageContact(){
     }
     let initials = firstname.charAt(0) + lastname.charAt(0);
     let randomcolor = Math.floor((Math.random()) * 11) + 1;
-    let newContact = {'firstname': firstname, 'lastname': lastname, 'email': newMail, 'phone': newPhone, 'initials': initials, 'color': randomcolor, 'id': contacts.length};    
+    let newContact = {'firstname': firstname, 'lastname': lastname, 'email': newMail, 'phone': newPhone, 'initials': initials, 'color': randomcolor, 'id': contacts.length + 3};    
     contacts.push(newContact);
     await saveContactsToBackend('created');
     clearAndPush(lastname, randomcolor, initials);

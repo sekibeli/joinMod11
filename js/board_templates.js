@@ -51,7 +51,7 @@ function showTaskHTML(index, element, j) {
 function testRenderNewTaskHTML(para) {
     return `
     <div class="whiteBg">
-         <div onclick="addTask('${para}')" class="mobileCreate" id="mobileCreate">Create</div>
+         <div onclick="addTask('${para}')" class="mobileCreate" id="mobileCreate">Create  <img src="assets/img/akar-icons_check.svg"></div>
     </div>
     <div class="newTaskHeadline"><h1>Add Task</h1><span id="clickMe" onclick="closeIt()">&#10005;</span></div>
     <div class="newTaskThird">
@@ -120,8 +120,8 @@ function testRenderNewTaskHTML(para) {
     <div id="displaySubtasks"></div>
 
     <div class="BTN" id="BTN">
-        <button onclick="closeOverlayAddTask()" class="btn light" id="clearBTN">Cancel<img src=""></button>
-        <button class="btn" id="createTaskBTN_task" onclick="addTask('${para}')">Create Task<img src=""></button>
+        <button onclick="closeOverlayAddTask()" class="btn light" id="clearBTN">Cancel &#10005;</button>
+        <button class="btn" id="createTaskBTN_task" onclick="addTask('${para}')">Create Task<img src="assets/img/akar-icons_check.svg"></button>
         </div>
             <div class="BTN" id="BTN-save"></div>
         </div>

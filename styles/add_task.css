@@ -191,12 +191,32 @@ input {
   padding: 10px;
   border-radius: 8px;
   height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 3px;
 }
 
 #createTaskBTN_task:hover {
   background-color: rgb(59, 175, 243);
 }
 
+#createTaskBTN_task img {
+  width: 20px;
+}
+#clearBTN {
+  display: flex;
+  align-items:center;
+  justify-content: space-around;
+  gap: 3px;
+}
+#clearBTN img {
+  width: 10px;
+}
+
+#clearBTN img:hover {
+  filter: hue-rotate(45deg);
+}
 .BTN {
   gap: 15px;
   display: flex;
@@ -521,7 +541,7 @@ input {
 @media (max-width: 600px) {
   .newTask {
     flex-direction: column;
-    padding: 0 20px 5px 20px;
+    padding: 0 20px 100px 20px;
   }
 
   .newTaskThird {
@@ -566,6 +586,12 @@ input {
     right: 10px;
     border-radius: 10px;
     cursor: pointer;
+  }
+
+  #mobileCreate {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
   }
 
   .whiteBg {

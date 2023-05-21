@@ -182,6 +182,7 @@ function testRenderNewTask(para) {
  * @param {*} contact contact in which the task is created
  */
 function renderNewTaskContact(para, contact) {
+    
     document.getElementById('newTask').innerHTML = ``;
     freezeBackground();
     showDarkOverlay();
@@ -198,8 +199,13 @@ function renderNewTaskContact(para, contact) {
         indi = i;});
         renderTheContactsInContacts(indi);
     chooseTheContact(para, indi);
+   
 
 }
+
+// function deleteAssignedPeople(){
+//     document.getElementById(`showAssignedPeople`).innerHTML = ``;
+// }
 
 function filterTheAssignedPeople(i) {
     document.getElementById(`showAssignedPeople`).innerHTML = ``;

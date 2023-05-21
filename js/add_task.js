@@ -16,6 +16,10 @@ let today = new Date().toISOString().split("T")[0];
 let para = 'todo';
 
 
+/**
+ * 
+ * @returns the first ID which is available
+ */
 function searchTheMaxID() {
   allIDs = [];
   for (i = 0; i < tasks.length; i++) {
@@ -25,7 +29,11 @@ function searchTheMaxID() {
   return (maxID + 1);
 }
 
-
+/**
+ * 
+ * @param {*} para Status of the task
+ * creates a new task, pushes it into the array and shows it on board
+ */
 function addTask(para) {
   let title = document.getElementById('title');
   let description = document.getElementById('description');
@@ -40,7 +48,10 @@ function addTask(para) {
   }
 }
 
-
+/**
+ * 
+ * @returns the ID which can be used
+ */
 function findAvailableTaskID() {
   let autoID;
   if (tasks.length > 0) {
@@ -50,13 +61,30 @@ function findAvailableTaskID() {
   return autoID;
 }
 
-
+/**
+ * 
+ * @param {*} title 
+ * @param {*} description 
+ * @param {*} category 
+ * @returns true or false
+ * Inputvalidation Add Task
+ */
 function checkAllInputs(title, description, category) {
   let totalOK = checkTheInput(title.value.length, 'missingTitle', 0) && checkTheInput(description.value.length, 'missingDescription', 0) && checkTheInput(category.textContent, 'missingCategory', 'Select a Category')  && checkTheInput(prio, 'missingPrio', undefined);
   return totalOK;
 }
 
-
+/**
+ * 
+ * @param {*} autoID 
+ * @param {*} title 
+ * @param {*} description 
+ * @param {*} duedate 
+ * @param {*} prio 
+ * @param {*} category 
+ * @param {*} para status
+ * @returns a new single task
+ */
 function createSingleTask(autoID, title, description, duedate, prio, category, para) {
   let task = {
     'id': autoID,
@@ -72,14 +100,20 @@ function createSingleTask(autoID, title, description, duedate, prio, category, p
   return task;
 }
 
-
+/**
+ * 
+ * @param {*} delay 
+ * shoes the board after some delay
+ */
 function goToBoard(delay) {
   setTimeout(() => {
     document.location = "../board.html"
   }, delay);
 }
 
-
+/**
+ * closes the open task by clicking on the dark overlay
+ */
 function closeItQuick() {
   closeOverlayAddTask();
   document.getElementById('overlayTask').classList.add('d-none');
@@ -95,7 +129,13 @@ function resetOverlay() {
   }
 }
 
-
+/**
+ * 
+ * @param {*} item 
+ * @param {*} area 
+ * @param {*} vgl 
+ * @returns true or false, depending on correct/incorrect input
+ */
 function checkTheInput(item, area, vgl) {
   let itemOK = true;
   if (item == vgl) {
@@ -461,7 +501,9 @@ function checkCategoryName(field){
   return categorynameIsChosen;
 }
 
-
+/**
+ * Resets the information-text which fly in from the bottom
+ */
 function resetFlyingInfo() {
   setTimeout(() => {
     document.getElementById('infoText').classList.add('d-none');

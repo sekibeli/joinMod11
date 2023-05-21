@@ -98,7 +98,7 @@ function generateRightSideNewContact(){
                                     <img src="assets/img/icon-email.svg" alt="">
                                 </div>
                                 <div class="input-form-new-contact">
-                                    <input required type="tel" pattern="[0-9]+" id="new-contact-phone" placeholder ="phone">
+                                    <input required type="tel" pattern="+[0-9]{3} [0-9]{4} [0-9]{8}" id="new-contact-phone" placeholder ="phone">
                                     <img src="assets/img/icon-phone.png" alt="">
                                 </div>
                             <div class="create-cancel-box" id="create-edit-content">
@@ -150,7 +150,7 @@ function generateRightSideEditContact(firstname, lastname, email, phone, initial
                                     <img src="assets/img/icon-email.svg" alt="">
                                 </div>
                                 <div class="input-form-new-contact">
-                                    <input required value="${phone}" type="text" id="new-contact-phone" placeholder ="phone">
+                                    <input required value="${phone}" type="tel" pattern="+[0-9]{2} [0-9]{4} [0-9]{9}" id="new-contact-phone" placeholder ="phone">
                                     <img src="assets/img/icon-phone.png" alt="">
                                 </div>
                             <div class="create-cancel-box" id="create-edit-content">
