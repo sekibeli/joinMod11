@@ -627,7 +627,8 @@ b {
 @media (max-width: 1300px) {
 
     .main {
-        margin-left: 250px
+        margin-left: 250px;
+        margin-right: 0;
     }
 
     .headline img {
@@ -656,6 +657,7 @@ b {
     .main {
         margin-left: 230px;
         overflow-y: scroll;
+        margin-right: 0;
     }
 }
 
@@ -698,6 +700,7 @@ b {
         overflow-y: scroll;
         margin-left: 0;
         margin-top: 100px;
+        margin-right: 0;
     }
 
     .box {

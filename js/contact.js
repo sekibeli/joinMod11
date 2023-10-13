@@ -6,7 +6,9 @@ let sortedContacts = [];
 let same = false;
 let colorCodes = ['#f99090', '#ff1717', '#fac66e', '#845400', '#b6fa81', '#07ab1d', '#81adfd', '#0048cd', '#ffb0f7', '#f500dc'];
 
-
+/**
+ * generates  the first letter of each lastname
+ */
 function getNeededLetters(){
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i]['lastname'];
@@ -17,7 +19,11 @@ function getNeededLetters(){
     }
 }
 
-
+/**
+ * 
+ * @param {*} message edited or created
+ * saves a new or an existing contact to the backend
+ */
 async function saveContactsToBackend(message){
     await backend.setItem('contacts', JSON.stringify(contacts));
     let messageBox = document.getElementById('create-success-message');
@@ -31,13 +37,17 @@ async function saveContactsToBackend(message){
    }, 500);
 }
 
-
+/**
+ * renders the contacts on first call
+ */
 async function renderContactsatStart() {
         await init();
         renderContacts();
 }
 
-
+/**
+ * renders the contacts sorted 
+ */
 function renderContacts(){
     getNeededLetters();
     sortNeededLetters();
@@ -52,7 +62,9 @@ function renderContacts(){
     }
 }
 
-
+/**
+ * sort-function
+ */
 function sortNeededLetters(){
     neededLetters.sort(function (a, b) {
         return a.localeCompare(b);
@@ -74,7 +86,9 @@ function generateContactForEachLetter(letter, j, contactlist){
     }
 }
 
-
+/**
+ * get the lastname and sort it
+ */
 function getOnlyLastnamesAndSort(){
     for (let i = 0; i < contacts.length; i++) {
         let lastname = contacts[i]['lastname'] + contacts[i]['firstname'];
@@ -86,7 +100,27 @@ function getOnlyLastnamesAndSort(){
 
 }
 
+/**
+ * Function which renders the contacts with one already chosen
+ */
+function renderContactsAssignToContacts(alreadyChosen) {
+    let check;
+    document.getElementById('optionsUser').innerHTML = ``;
+    for (let index = 0; index < contacts.length; index++) {
+      const element = contacts[index];
+      if(index == alreadyChosen) { check = 'checked'
+      break;
+    }
+    else {
+      check = '';
+    }
+      document.getElementById('optionsUser').innerHTML += renderContactsAssignContactsHTML(index, contacts[index], check);
+    }
+  }
 
+/**
+ * sort the contacts alphabetical by the lastname
+ */
 function sortContactsAlphabeticallyByLastName(){
     onlyLastnames = [];
     sortedContacts = [];
@@ -103,7 +137,17 @@ function sortContactsAlphabeticallyByLastName(){
     contacts = sortedContacts;
 }
 
-
+/**
+ * 
+ * @param {*} firstname 
+ * @param {*} lastname 
+ * @param {*} email 
+ * @param {*} phone 
+ * @param {*} initials 
+ * @param {*} color 
+ * @param {*} index active contact
+ * renders the contact to edit it
+ */
 function popUpEditContact(firstname, lastname, email, phone, initials, color, index){
     clearContactCard();
     document.getElementById('overlay-box').classList.remove('d-none');
@@ -115,7 +159,9 @@ function popUpEditContact(firstname, lastname, email, phone, initials, color, in
     }, 225);
 }
 
-
+/**
+ * renders the form "add a new contact"
+ */
 function addNewContact(){
     clearContactCard();
     document.getElementById('overlay-box').classList.remove('d-none');
@@ -127,7 +173,11 @@ function addNewContact(){
     }, 225);
 }
 
-
+/**
+ * 
+ * @param {*} letter active letter
+ * checks which name is sorted to which letter
+ */
 function checkIfLetterIsUsedForName(letter){
     let letterposition = neededLetters.indexOf(`${letter}`);
     let letterIsNeeded = 0;
@@ -141,6 +191,13 @@ function checkIfLetterIsUsedForName(letter){
         neededLetters.splice(letterposition, 1);
     }
 }
+
+/**
+ * 
+ * @param {*} color color of contact
+ * @param {*} index index active contact
+ * saves the new contact
+ */
 async function saveEditedContact(color, index){
     let newName = document.getElementById('new-contact-name').value;
     let newMail = document.getElementById('new-contact-mail').value;
@@ -150,46 +207,30 @@ async function saveEditedContact(color, index){
     let newAndOldID = contacts[index]['id'];
     contacts.splice(index, 1);
     let newNamesplitted = newName.split(' ');
-    if (newNamesplitted.length == 1) {
-        showWarningMessageContact();
-        return;
-     }
+    if (newNamesplitted.length == 1) {showWarningMessageContact(); return;}
     let firstname = newNamesplitted[0].toUpperCase().charAt(0) + newNamesplitted[0].substring(1);
     let lastname = newNamesplitted[1].toUpperCase().charAt(0) + newNamesplitted[1].substring(1);
     let initials = firstname.charAt(0) + lastname.charAt(0); 
     let newContact = {'firstname': firstname, 'lastname': lastname, 'email': newMail, 'phone': newPhone, 'initials': initials, 'color': color, 'id': newAndOldID};
     contacts.push(newContact);
     await saveContactsToBackend('edited');
+    showContactsAfterEditing(firstname, lastname, initials, newMail, color, newPhone,index,newAndOldID);
+}
+
+
+function showContactsAfterEditing(firstname, lastname, initials, newMail, color, newPhone,index,newAndOldID){
     showContact(firstname, lastname, initials, newMail, color, newPhone, index, newAndOldID);
     clearAndPush(lastname, color, initials);
     renderContacts();
 }
 
-async function saveEditedContact(color, index){
-    let newName = document.getElementById('new-contact-name').value;
-    let newMail = document.getElementById('new-contact-mail').value;
-    let newPhone = document.getElementById('new-contact-phone').value;
-    let letter = contacts[index].lastname.charAt(0);
-    checkIfLetterIsUsedForName(letter);
-    let newAndOldID = contacts[index]['id'];
-    contacts.splice(index, 1);
-    let newNamesplitted = newName.split(' ');
-    if (newNamesplitted.length == 1) {
-        showWarningMessageContact();
-        return;
-     }
-    let firstname = newNamesplitted[0].toUpperCase().charAt(0) + newNamesplitted[0].substring(1);
-    let lastname = newNamesplitted[1].toUpperCase().charAt(0) + newNamesplitted[1].substring(1);
-    let initials = firstname.charAt(0) + lastname.charAt(0); 
-    let newContact = {'firstname': firstname, 'lastname': lastname, 'email': newMail, 'phone': newPhone, 'initials': initials, 'color': color, 'id': newAndOldID};
-    contacts.push(newContact);
-    await saveContactsToBackend('edited');
-    showContact(firstname, lastname, initials, newMail, color, newPhone, index, newAndOldID);
-    clearAndPush(lastname, color, initials);
-    renderContacts();
-}
-
-
+/**
+ * 
+ * @param {*} lastname 
+ * @param {*} color 
+ * @param {*} initials 
+ * clears and closes the contact-form
+ */
 function clearAndPush(lastname, color, initials){
     pushNewNeedLetter(lastname);
     animateCloseContact(color, initials);
@@ -205,34 +246,11 @@ function showWarningMessageContact(){
     }, 1000);
 }
 
-
- async function saveNewContact(){
-    let newName = document.getElementById('new-contact-name').value;
-    let newMail = document.getElementById('new-contact-mail').value;
-    let newPhone = document.getElementById('new-contact-phone').value;
-    let newNamesplitted = newName.split(' ');
-    if (newNamesplitted.length == 1) {
-       showWarningMessageContact();
-       return;
-    }
-    let firstname = newNamesplitted[0].toUpperCase().charAt(0) + newNamesplitted[0].substring(1);
-    let lastname = newNamesplitted[1].toUpperCase().charAt(0) + newNamesplitted[1].substring(1);
-    if (onlyLastnames.indexOf(lastname+firstname) > -1) {
-        alert('cannnot create contact that already exists');
-        return;
-    }
-    let initials = firstname.charAt(0) + lastname.charAt(0);
-    let randomcolor = Math.floor((Math.random()) * 11) + 1;
-    let newContact = {'firstname': firstname, 'lastname': lastname, 'email': newMail, 'phone': newPhone, 'initials': initials, 'color': randomcolor, 'id': contacts.length + 3};    
-    contacts.push(newContact);
-    await saveContactsToBackend('created');
-    clearAndPush(lastname, randomcolor, initials);
-    showContact(firstname, lastname, initials, newMail, randomcolor, newPhone, (contacts.length-1), contacts.length-1);
-    renderContacts();
-}
-
-
-
+/**
+ * 
+ * @param {*} lastname lastname of new contact
+ * pushes a needed letter in the neededLetters array
+ */
 function pushNewNeedLetter(lastname){
     if (neededLetters.indexOf(lastname.toUpperCase().charAt(0)) == -1) {
         neededLetters.push(lastname.toUpperCase().charAt(0))
@@ -264,21 +282,59 @@ function closeNewContact(){
     editing = false;
 }
 
+/**
+ * 
+ * reads and saves a new contact
+ */
+async function saveNewContact(){
+    let newName = document.getElementById('new-contact-name').value;
+    let newMail = document.getElementById('new-contact-mail').value;
+    let newPhone = document.getElementById('new-contact-phone').value;
+    let newNamesplitted = newName.split(' ');
+    if (newNamesplitted.length == 1) {
+       showWarningMessageContact();
+       return;
+    }
+    let firstname = newNamesplitted[0].toUpperCase().charAt(0) + newNamesplitted[0].substring(1);
+    let lastname = newNamesplitted[1].toUpperCase().charAt(0) + newNamesplitted[1].substring(1);
+    if (onlyLastnames.indexOf(lastname+firstname) > -1) {
+        alert('cannnot create contact that already exists');
+        return;
+    }
+    let initials = firstname.charAt(0) + lastname.charAt(0);
+    let randomcolor = Math.floor((Math.random()) * 11) + 1;
+    let newContact = {'firstname': firstname, 'lastname': lastname, 'email': newMail, 'phone': newPhone, 'initials': initials, 'color': randomcolor, 'id': contacts.length + 3};    
+    contacts.push(newContact);
+    await saveContactsToBackend('created');
+    clearAndPush(lastname, randomcolor, initials);
+    showContact(firstname, lastname, initials, newMail, randomcolor, newPhone, (contacts.length-1), contacts.length-1);
+    renderContacts();
+}
+
 
 function clearContactCard(){
     document.getElementById('new-contact-left').innerHTML = '';    
     document.getElementById('new-contact-right-content').innerHTML = '';
 }
 
-
+/**
+ * 
+ * @param {*} randomcolor 
+ * @param {*} initiales 
+ * get a color and initials
+ */
 function changeCircleColorNewContact(randomcolor, initiales){
         document.getElementById('circle-new-contact').classList.remove('bg0');
         document.getElementById('circle-new-contact').classList.add(`bg${randomcolor}`)
         document.getElementById('circle-new-contact').innerHTML = `${initiales}`;
 }
-    
 
-
+/**
+ * 
+ * @param {*} randomcolor of contact
+ * @param {*} initiales of name
+ * animation of the closing contact
+ */
 function animateCloseContact(randomcolor, initiales){
         changeCircleColorNewContact(randomcolor, initiales);
         setTimeout(() => {
@@ -295,26 +351,11 @@ function animateCloseContact(randomcolor, initiales){
         }, 250);
     
 }
+
 /**
- * Function which renders the contacts with one already chosen
+ * 
+ * @param {*} i active task
  */
-function renderContactsAssignToContacts(alreadyChosen) {
-    let check;
-    console.log('hierbinich');
-    document.getElementById('optionsUser').innerHTML = ``;
-    for (let index = 0; index < contacts.length; index++) {
-      const element = contacts[index];
-      if(index == alreadyChosen) { check = 'checked'
-      break;
-    }
-    else {
-      check = '';
-    }
-      document.getElementById('optionsUser').innerHTML += renderContactsAssignContactsHTML(index, contacts[index], check);
-    }
-  }
-
-
 function renderContactsAssignBoard(i) {
     let check;
     document.getElementById('optionsUser').innerHTML = ``;

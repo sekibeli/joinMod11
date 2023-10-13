@@ -1,4 +1,4 @@
-// let users = [];
+let logOutShown = false;
 
 /**
  * fetches the JSON from backend and put it in the arrays tasks, contacts, categories
@@ -32,7 +32,7 @@ async function includeHTML(element) {
     }
     document.getElementById(`sidebar-${element}`).style.backgroundColor = "#091931";
 }
-let logOutShown = false;
+
 
 function showLogout(){
     let button = document.getElementById('logout-button');

@@ -70,7 +70,7 @@ function findAvailableTaskID() {
  * Inputvalidation Add Task
  */
 function checkAllInputs(title, description, category) {
-  let totalOK = checkTheInput(title.value.length, 'missingTitle', 0) && checkTheInput(description.value.length, 'missingDescription', 0) && checkTheInput(category.textContent, 'missingCategory', 'Select a Category')  && checkTheInput(prio, 'missingPrio', undefined);
+  let totalOK = checkTheInput(title.value.length, 'missingTitle', 0) && checkTheInput(description.value.length, 'missingDescription', 0) && checkTheInput(category.textContent, 'missingCategory', 'Select a Category') && checkTheInput(prio, 'missingPrio', undefined);
   return totalOK;
 }
 
@@ -107,7 +107,7 @@ function createSingleTask(autoID, title, description, duedate, prio, category, p
  */
 function goToBoard(delay) {
   setTimeout(() => {
-    document.location = "../board.html"
+    document.location = "../joinsingle/board.html"
   }, delay);
 }
 
@@ -146,7 +146,9 @@ function checkTheInput(item, area, vgl) {
   return itemOK;
 }
 
-
+/**
+ * add a subtask in an existing task or a new task
+ */
 function addSubtask() {
   let subtaskField = document.getElementById('subtask');
   let singleSubtask = subtaskField.value;
@@ -162,7 +164,11 @@ function addSubtask() {
   showSubtasks(subtasks_interim);
 }
 
-
+/**
+ * 
+ * @param {*} subtasks_interim subtasks-array which is not saved in backend only interim
+ * 
+ */
 function showSubtasks(subtasks_interim) {
   let gecheckt;
   document.getElementById('displaySubtasks').innerHTML = ``;
@@ -173,19 +179,25 @@ function showSubtasks(subtasks_interim) {
   });
 }
 
-
+/**
+ * 
+ * @returns the subtask-array which will be saved in backend
+ */
 function getSubtasks() {
   subtasks = [];
   for (let index = 0; index < subtasks_interim.length; index++) {
     let subtask = {
-      'subtaskName': subtasks_interim[index].subtaskName,'check': document.getElementById(`input${index}`).checked
+      'subtaskName': subtasks_interim[index].subtaskName, 'check': document.getElementById(`input${index}`).checked
     }
     subtasks.push(subtask);
   }
   return subtasks;
 }
 
-
+/**
+ * 
+ * @returns an array with contacts which are assigned to a task
+ */
 function getAssignedContacts() {
   contactsAssignTo = [];
   for (let index = 0; index < contacts.length; index++) {
@@ -202,12 +214,17 @@ function getAssignedContacts() {
   return contactsAssignTo;
 }
 
-
+/**
+ * saves the tasks in the backend
+ */
 async function saveTasks() {
   await backend.setItem('tasks', JSON.stringify(tasks));
 }
 
-
+/**
+ * 
+ * @returns all users which are checked
+ */
 function getAssignedToUser() {
   let checkboxes = document.querySelectorAll('input[name="assignedTo"]:checked');
   let values = [];
@@ -222,7 +239,11 @@ function addPrio(id) {
   prio = id;
 }
 
-
+/**
+ * 
+ * @param {*} param id-field
+ * select the category in addTask and shos it
+ */
 function selectCategory(param) {
   let category = document.getElementById(`${param}`).textContent;
   document.getElementById('selectedCategory').innerHTML = `<div class="inlineDuo"><span>${category}</span><span class="circle" style="background-color: ${categories[param].categoryColor};"></span></div>`;
@@ -232,50 +253,52 @@ function selectCategory(param) {
   document.getElementById('missingCategory').classList.add('d-none');
 }
 
-
+/**
+ * 
+ * @param {*} i aktive Task
+ * opens and closes the contacts-menu in add Task
+ */
 function toggleOptionsContactsAssignTo(i) {
   document.getElementById('see').classList.toggle('d-none');
   renderContactsAssignBoard(i);
 }
 
-
+/**
+ * delay in render the contacts in addTaks
+ */
 function renderTheContacts() {
   setTimeout(renderContactsAssignTo, 300);
 }
 
+/**
+ * 
+ * @param {*} alreadyChosen contact which is alread chosen
+ */
 function renderTheContactsInContacts(alreadyChosen) {
   setTimeout(renderContactsAssignToContacts, 300, alreadyChosen);
 }
 
+/**
+ * 
+ * @param {*} alreadyChosen contact which is alread chosen
+ * renders the contact in addTask with the "alreadyChosen"-contact already checked
+ */
 function renderContactsAssignToContacts(alreadyChosen) {
   let check;
-  console.log('hierbinich');
-  document.getElementById('optionsUser').innerHTML = ``;
-  // for (let index = 0; index < contacts.length; index++) {
-  //   const element = contacts[index];
-  //   if(index == alreadyChosen) { check = 'checked'
-  //   break;
-  // }
-  // else {
-  //   check = '';
-  // }
+   document.getElementById('optionsUser').innerHTML = ``;
   for (let index = 0; index < contacts.length; index++) {
-    // let contact = contacts[index];
-   
-      // if (contact.firstname + ' ' + contact.lastname == tasks[i].assignedTo[a].name) 
-      if(index == alreadyChosen)
-      {
-        check = 'checked';
-        
-      }
-      else {
-        check = '';
-      }
-    
+    if (index == alreadyChosen) {
+      check = 'checked';
+    }
+    else {
+      check = '';
+    }
     document.getElementById('optionsUser').innerHTML += renderContactsAssignContactsHTML(index, contacts[index], check);
   }
 }
-
+/**
+ * Renders all contacts in a new addTask form
+ */
 function renderContactsAssignTo() {
   document.getElementById('optionsUser').innerHTML = ``;
   for (let index = 0; index < contacts.length; index++) {
@@ -284,7 +307,11 @@ function renderContactsAssignTo() {
   }
 }
 
-
+/**
+ * 
+ * @param {*} i index of active Task
+ * renders the contacts in an existing task which some contacts checked
+ */
 function renderContactsAssignBoard(i) {
   let check;
   document.getElementById('optionsUser').innerHTML = ``;
@@ -303,7 +330,11 @@ function renderContactsAssignBoard(i) {
   }
 }
 
-
+/**
+ * 
+ * @param {*} i index of active task
+ * renders the contacts
+ */
 function renderContactsAssignAddTask(i) {
   document.getElementById('optionsUser').innerHTML = ``;
   for (let index = 0; index < contacts.length; index++) {
@@ -312,7 +343,9 @@ function renderContactsAssignAddTask(i) {
   }
 }
 
-
+/**
+ * renders the categories
+ */
 function renderCategories() {
   document.getElementById('optionsCat').innerHTML = ``;
   document.getElementById('optionsCat').innerHTML += renderNewCategoryHTML();
@@ -322,7 +355,9 @@ function renderCategories() {
   }
 }
 
-
+/**
+ * Shows a new field to add a new category and the possibility to choose a color
+ */
 function addANewCategory() {
   document.getElementById('missingCategory').classList.add('d-none');
   document.getElementById(`inputUnit`).innerHTML = addANewCategoryHTML();
@@ -330,15 +365,19 @@ function addANewCategory() {
   renderColorSpots();
 }
 
-
+/**
+ * renders the date in addTask with a delay
+ */
 async function delayDate() {
   await init();
-     setTimeout(renderDate, 300);
-     setTimeout(renderContactsAssignTo, 300);
-    
-  }
+  setTimeout(renderDate, 300);
+  setTimeout(renderContactsAssignTo, 300);
 
+}
 
+/**
+ * Renders the categories
+ */
 function renderInputUnit() {
   document.getElementById(`inputUnit`).innerHTML = ``;
   document.getElementById(`inputUnit`).innerHTML += renderInputUnitHTML();
@@ -346,7 +385,9 @@ function renderInputUnit() {
   selectCategory(categories.length - 1);
 }
 
-
+/**
+ * Renders the colorspots for categories
+ */
 function renderColorSpots() {
   for (let index = 0; index < colorspots.length; index++) {
     const element = colorspots[index];
@@ -354,14 +395,22 @@ function renderColorSpots() {
   }
 }
 
-
+/**
+ * 
+ * @param {*} index index active color
+ * remembers the chosen color and highlighted it
+ */
 function rememberColor(index) {
   colorspot = colorspots[index];
   document.getElementById(`col${index}`).classList.add('highlighted');
   resetUnselectedSpots(index);
 }
 
-
+/**
+ * 
+ * @param {*} index index active chosen color
+ * deselect the unselected colorspots
+ */
 function resetUnselectedSpots(index) {
   for (let j = 0; j < colorspots.length; j++) {
     if (index != j) {
@@ -370,32 +419,46 @@ function resetUnselectedSpots(index) {
   }
 }
 
-
+/**
+ * saves the new category
+ */
 async function addNewCat() {
   let newCatField = document.getElementById('showNewCat');
   if (checkIfInputIsComplete(newCatField)) {
     document.getElementById('missingColorspot').classList.add('d-none');
     let category = {
-      'categoryName': newCatField.value,'categoryColor': colorspot}
+      'categoryName': newCatField.value, 'categoryColor': colorspot
+    }
     categories.push(category);
     await backend.setItem('categories', JSON.stringify(categories));
     renderInputUnit();
   }
 }
 
-
+/**
+ * 
+ * @param {*} field new category
+ * @returns true if category has a name and a color
+ */
 function checkIfInputIsComplete(field) {
-    return (checkCategoryName(field) && checkColorspot());
+  return (checkCategoryName(field) && checkColorspot());
 }
 
+/**
+ * reset the category field
+ */
 function resetCategoryChoice() {
   let inputUnit = document.getElementById('inputUnit');
   inputUnit.innerHTML = ``;
   inputUnit.innerHTML += resetCategoryChoiceHTML();
 }
 
-
-function checkColorspot(){
+/**
+ * 
+ * @returns true if colorspot is chosen
+ * checks if the new category has a colorspot
+ */
+function checkColorspot() {
   let colorspotIsChosen = false;
   if (colorspot == undefined) {
     document.getElementById('missingColorspot').classList.remove('d-none');
@@ -418,14 +481,22 @@ function selectButton(id) {
   resetUnselectedButtons(id);
 }
 
-
+/**
+ * 
+ * @param {*} id index of chosen prio
+ * highlights the chosen priority
+ */
 function changeSelectedButton(id) {
   let priority = document.getElementById(`${priorities[id].prio}`);
   document.getElementById(`pic${priorities[id].prio}`).style = `filter: brightness(0) invert(1)`;
   priority.style = `background-color: ${priorities[id].color}; color: white`;
 }
 
-
+/**
+ * 
+ * @param {*} id index of chose prio
+ * deselect the unchosen prio-Buttons
+ */
 function resetUnselectedButtons(id) {
   for (let index = 0; index < priorities.length; index++) {
     if (index != id) {
@@ -441,12 +512,18 @@ function changeButtonOnclick() {
   document.getElementById('clearBTN').onclick = `clearAddTask`;
 }
 
-
+/**
+ * 
+ * @param {*} field active field
+ * hides the "missing input" - text when there is an input
+ */
 function hideMissingText(field) {
   document.getElementById(`${field}`).classList.add('d-none');
 }
 
-
+/**
+ * hides all missing-text areas
+ */
 function resetMissingText() {
   document.getElementById('missingTitle').classList.add('d-none');
   document.getElementById('missingDescription').classList.add('d-none');
@@ -455,13 +532,19 @@ function resetMissingText() {
   document.getElementById('missingPrio').classList.add('d-none');
 }
 
-
+/**
+ * 
+ * @param {*} i index of the active task
+ * @param {*} index index of active contact
+ * shows the just shosen contacts in add Task
+ */
 function chooseTheContact(i, index) {
   if (i >= 0) {
     chosenContacts = tasks[i].assignedTo;
   }
   let chosenContact = {
-    'name': contacts[index].firstname + ' ' + contacts[index].lastname,'initial': contacts[index].initials,'color': contacts[index].color};
+    'name': contacts[index].firstname + ' ' + contacts[index].lastname, 'initial': contacts[index].initials, 'color': contacts[index].color
+  };
   let inis = chosenContacts.findIndex(obj => obj.initial == chosenContact.initial);
   if (inis == -1) {
     chosenContacts.push(chosenContact);
@@ -472,7 +555,11 @@ function chooseTheContact(i, index) {
   showTheJustChosenContacts(chosenContacts);
 }
 
-
+/**
+ * 
+ * @param {*} theContacts array which contains the chosen contacts
+ * renders the contacts with initials an color
+ */
 function showTheJustChosenContacts(theContacts) {
   document.getElementById(`showAssignedPeople`).innerHTML = ``;
   for (let j = 0; j < theContacts.length; j++) {
@@ -481,15 +568,21 @@ function showTheJustChosenContacts(theContacts) {
   document.getElementById('missingContact').classList.add('d-none');
 }
 
-
+/**
+ * the infoText which flys in in out when something was successfully added
+ */
 function flyingInfo() {
   document.getElementById('infoText').classList.remove('d-none');
   document.getElementById('infoText').classList.add('infoText')
   resetFlyingInfo();
 }
 
-
-function checkCategoryName(field){
+/**
+ * 
+ * @param {*} field active field
+ * @returns true, if a categoryName was chosen
+ */
+function checkCategoryName(field) {
   let categorynameIsChosen = false;
   if (field.value == '') {
     categorynameIsChosen = false;

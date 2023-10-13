@@ -571,6 +571,8 @@ body {
         align-items: center;
         width: 350px;
         height: 650px;
+       
+        
     }
     .new-contact-left{
         width: 350px;
@@ -585,7 +587,7 @@ body {
         display: none;
     }
     .close-contact-cross{
-        transform: translate(260px, -330px);
+        transform: translate(260px, -260px);
         color: white;    
     }
     .new-contact-left-line{
@@ -610,6 +612,7 @@ body {
     }
     .new-contact-circle-name{
         flex-direction: column;
+        padding-bottom: 40px;
     }
     .edit-contact-circle{
         z-index: 2;
@@ -622,7 +625,7 @@ body {
         display: none;
     }
     .contact-new-inputs{
-        margin-top: 50px;
+        margin-top: 30px;
     }
     #contact-new-cancel{
         display: none;
@@ -689,4 +692,5 @@ body {
     }
 
 }
+
 

@@ -5,6 +5,9 @@ let some = [];
 let a = 0;
 let AUDIO_MOVE = new Audio('assets/sound/splat.mp3');
 
+/**
+ * clears the complete board
+ */
 function clearBoard() {
     document.getElementById('todo').innerHTML = ``;
     document.getElementById('inProgress').innerHTML = ``;
@@ -41,7 +44,6 @@ function goBack() {
     showTasksOnBoard();
 }
 
-
 /**
  * some calculation for the progressbar
  * @param {*} i index of the current task
@@ -65,8 +67,6 @@ function countTrue(i) {
     let count = element.filter(a => a.check == true);
     return count.length;
 }
-
-
 
 /**
  * makes all placeholder seen for the user
@@ -155,12 +155,20 @@ function changeTheLook() {
     document.getElementById('see').classList.add('d-none');
 }
 
-
+/**
+ * 
+ * @param {*} i index active task
+ * renders the save button for saving an existing task
+ */
 function createSaveButton(i) {
     document.getElementById('BTN').innerHTML = `<button class="btn" id="ok" onclick="saveExistingTask(${i})">Ok <img src="assets/img/akar-icons_check.svg"><img src=""></button>`;
 }
 
-
+/**
+ * 
+ * @param {*} index index active task
+ * chose the right background color for the different priorities
+ */
 function getbgColor(index) {
     if (tasks[index].priority == 'urgent') {
         changeColor('red');
@@ -173,13 +181,19 @@ function getbgColor(index) {
     }
 }
 
-
+/**
+ * 
+ * @param {*} color chosen priority / color
+ * changes the color of the prio-button when it is chosen
+ */
 function changeColor(color) {
     document.getElementById('prioPic').classList.add('invert');
     document.getElementById('priority').classList.add(color);
 }
 
-
+/**
+ * Closes a task
+ */
 function closeTask() {
     document.getElementById('makeBgDarker').classList.add('d-none');
     document.getElementById('overlayTask').classList.add('d-none');
@@ -191,6 +205,9 @@ function closeTask() {
     loosenBackground();
 }
 
+/**
+ * Resets all interim variables when a task is closed
+ */
 function resetData() {
     currentOpenTask = -1;
     chosenContacts = [];
@@ -198,7 +215,11 @@ function resetData() {
     subtasks = [];
 }
 
-
+/**
+ * 
+ * @param {*} i index active task
+ * writes a chosen task in the fields to edit them
+ */
 function loadTheTaskContent(i) {
     title.value = tasks[i].title;
     description.value = tasks[i].description;
@@ -208,7 +229,11 @@ function loadTheTaskContent(i) {
     subtasks = tasks[i].subtasks;
 }
 
-
+/**
+ * 
+ * @param {*} i index active task
+ * saves an existing task
+ */
 function saveExistingTask(i) {
     tasks[i] = changeTheExistingTask(i);
     saveTasks();
@@ -217,6 +242,11 @@ function saveExistingTask(i) {
     resetData();
 }
 
+/**
+ * 
+ * @param {*} i index existing task
+ * @returns the edited task
+ */
 function changeTheExistingTask(i) {
     let title = document.getElementById('title');
     let description = document.getElementById('description');
@@ -237,7 +267,7 @@ function changeTheExistingTask(i) {
 /**
  * 
  * @param {*} i index of the active Task
- * @returns 
+ * @returns edited subtasks
  */
 function getExistingSubtasks(i) {
     data = tasks[i].subtasks.length;
@@ -266,7 +296,7 @@ function readPrio(i) {
 
 function closeIt() {
     resetMissingText();
-    document.location = "../board.html";
+    document.location = "../joinsingle/board.html";
 }
 
 /**
@@ -326,6 +356,7 @@ function filterTasks() {
         }
     }
 }
+
 /**
  * 
  * @param {*} i index of the task which is deleted
@@ -336,7 +367,9 @@ function deleteTask(i) {
     goToBoard(300);
 }
 
-
+/**
+ * Renders the today date and set it as minimum in addTask
+ */
 function renderDate() {
     let currentDate = document.getElementById('dueDate');
     currentDate.value = today;

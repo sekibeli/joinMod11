@@ -5,8 +5,6 @@ let greetings = ['Good Morning', 'Hello', 'Good Afternoon', 'Good Evening'];
 let position;
 
 
-
-
 async function getSummary(){
     await init();
     getNumberofTasks('status', 'inProgress', tasks);
@@ -21,7 +19,9 @@ async function getSummary(){
     getUrgentLogic();
 }
 
-
+/**
+ * get amount of tasks with status not done
+ */
 function getTasksNotDone(){
     for (let i = 0; i < tasks.length; i++) {
         task = tasks[i];
@@ -31,6 +31,11 @@ function getTasksNotDone(){
     }
 }
 
+/**
+ * 
+ * @param {*} hours time in hours
+ * get the right greeting
+ */
 function getGreeting(hours){
     if (hours < 10) {
         position = 0;  
@@ -75,7 +80,13 @@ function getUrgentLogic(){
 
 }
 
-
+/**
+ * 
+ * @param {*} category 
+ * @param {*} status 
+ * @param {*} relevantArray 
+ * get amount of tasks
+ */
 function getNumberofTasks(category, status, relevantArray){
     let count = 0;
     for (let i = 0; i < relevantArray.length; i++) {
@@ -89,7 +100,7 @@ function getNumberofTasks(category, status, relevantArray){
 
 
 function goToBoard(){
-    window.location.href = "board.html"
+    window.location.href = "../joinsingle/board.html"
 
 }
 
@@ -98,7 +109,7 @@ function generateSummaryHTML(){
     let content = document.getElementById('summary-content');
     content.innerHTML = `
         <div class="kanban-header-headline">
-            <span>Kanban Projekt Management Tool</span>
+            Kanban Projekt Management Tool
         </div>
         <div class="summary-headline">
             <h1>Summary</h1>

@@ -16,7 +16,6 @@ function renderCompleteBoard() {
     renderPlaceholder();
 }
 
-
 /**
  * render the placeholder
  */
@@ -25,6 +24,7 @@ function renderPlaceholder() {
         generatePlaceholderBox(`${element}`);
     });
 }
+
 /**
  * clears the board and render the tasks on board
  */
@@ -41,9 +41,12 @@ function showTheMovingBox(i) {
     document.getElementById(`box${i}`).innerHTML = `<div class="boxLayer" id="boxLayer${i}"></div>`;
     let links = getMovingLinks(i);
     renderMovingTo(i, links);
-
 }
-
+/**
+ * 
+ * @param {*} i index of task
+ * renders the pic shown on mobile for moving the task to different stati
+ */
 function renderTheMovingPic(i) {
     document.getElementById(`box${i}`).innerHTML += `<img class="moveIt" id="moveIt${tasks[i].id}" onclick="event.stopPropagation();showTheMovingBox(${i})" src="assets/img/icons8-bewegen.png" alt=""></img>`;
 }
@@ -64,10 +67,11 @@ function renderBg(index, area) {
  */
 async function delay() {
     // setTimeout(function () {
-       await init();
-      showTasksOnBoard();
+    await init();
+    showTasksOnBoard();
     // }, 300);
 }
+
 /**
  * It renders the assigned Contacts on board
  * @param {*} i index of the activ task
@@ -100,7 +104,11 @@ function renderNameCircles(i, countIt, some) {
     }
 }
 
-
+/**
+ * 
+ * @param {*} status 
+ * generates the placeholder box which is needed for the drag and drop
+ */
 function generatePlaceholderBox(status) {
     document.getElementById(status).innerHTML += `<div class="placeholder d-none" id="box-end-Column-${status}"></div>`;
 }
@@ -133,6 +141,12 @@ function showEditTask(i) {
     createSaveButton(i);
     loadAllTheTaskContent(i);
 }
+
+/**
+ * 
+ * @param {*} element array which contains the assigned contacts 
+ * renders the contacts on board assigned to a task
+ */
 function showAssigned(element) {
     for (let index = 0; index < element.assignedTo.length; index++) {
         let assigns = element.assignedTo[index];
@@ -140,6 +154,11 @@ function showAssigned(element) {
     }
 }
 
+/**
+ * 
+ * @param {*} i index activ task
+ * shows all subtasks of an existing task
+ */
 function showExistingSubtasks(i) {
     if (tasks[i].subtasks.length > 0) {
         tasks[i].subtasks.forEach((element, j) => {
@@ -148,12 +167,21 @@ function showExistingSubtasks(i) {
     }
 }
 
+/**
+ * 
+ * @param {*} func html-code with onformation about what prio
+ * renders the prio buttons in edit anexisting task
+ */
 function renderPrioButton(func) {
     document.getElementById('prioButtons').innerHTML = ``;
     document.getElementById('prioButtons').innerHTML += func;
 }
 
-
+/**
+ * 
+ * @param {*} i index active task
+ * renders the subtasks with information about already checked subtasks
+ */
 function renderSubtasks(i) {
     subtasks_interim = tasks[i].subtasks;
     document.getElementById('displaySubtasks').innerHTML = ``;
@@ -166,6 +194,12 @@ function renderSubtasks(i) {
         ch = '';
     }
 }
+
+/**
+ * 
+ * @param {*} para status
+ * renders the addTask form
+ */
 function testRenderNewTask(para) {
     document.getElementById('newTask').innerHTML = ``;
     freezeBackground();
@@ -180,33 +214,30 @@ function testRenderNewTask(para) {
  * 
  * @param {*} para status
  * @param {*} contact contact in which the task is created
+ * renders the addTask form in the contacts with one contact already chosen as assigned to the task
  */
 function renderNewTaskContact(para, contact) {
-    
     document.getElementById('newTask').innerHTML = ``;
     freezeBackground();
     showDarkOverlay();
     document.getElementById('newTask').classList.remove('d-none');
     document.getElementById('overlayTask').innerHTML = ``;
     document.getElementById('newTask').innerHTML += testRenderNewTaskHTML(para);
-   
-    // renderContactsAssignBoard(i);
     renderDate();
-   
     let indi;
-    contacts.find(function(item,i) {
-        if(item.id === contact)
-        indi = i;});
-        renderTheContactsInContacts(indi);
+    contacts.find(function (item, i) {
+        if (item.id === contact)
+            indi = i;
+    });
+    renderTheContactsInContacts(indi);
     chooseTheContact(para, indi);
-   
-
 }
 
-// function deleteAssignedPeople(){
-//     document.getElementById(`showAssignedPeople`).innerHTML = ``;
-// }
-
+/**
+ * 
+ * @param {*} i index of active task
+ * filters the contacts to display only those who are assigned to the task
+ */
 function filterTheAssignedPeople(i) {
     document.getElementById(`showAssignedPeople`).innerHTML = ``;
     some = [];
@@ -235,5 +266,4 @@ function renderMovingTo(i, links) {
 function setToggleID(i) {
     document.getElementById('toggleID').innerHTML = `<div id="selected">Assigned to</div>
     <img src="assets/img/openMenuIcon.svg" onclick="toggleOptionsContactsAssignTo(${i})" alt="">`;
-  }
-  
+}
