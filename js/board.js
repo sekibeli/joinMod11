@@ -49,12 +49,12 @@ function goBack() {
  * @param {*} i index of the current task
  */
 function getDoneSubtasks(i) {
-    let count = getTheRightBgColor(tasks[i].category);
-    let bgColor = categories[count].categoryColor;
-    let total = tasks[i].subtasks.length;
+    // let count = getTheRightBgColor(this.tasks[i].category);
+    // let bgColor = categories[count].categoryColor;
+    let total = this.tasks[i].subtasks.length;
     let width = countTrue(i) / total * 100;
     document.getElementById(`bar${i}`).style.width = `${width}%`;
-    document.getElementById(`bar${i}`).style.backgroundColor = bgColor;
+    document.getElementById(`bar${i}`).style.backgroundColor = this.tasks[i].category.color;
 }
 
 /**
@@ -63,8 +63,8 @@ function getDoneSubtasks(i) {
  * @returns the amount of done subtasks
  */
 function countTrue(i) {
-    let element = tasks[i].subtasks;
-    let count = element.filter(a => a.check == true);
+    let element = this.tasks[i].subtasks;
+    let count = element.filter(a => a.completed === true);
     return count.length;
 }
 

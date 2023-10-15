@@ -6,8 +6,8 @@ function renderCompleteBoard() {
     for (let index = 0; index < this.tasks.length; index++) {
         const element = this.tasks[index];
         console.log('element:', element);
-        document.getElementById(`${element.status}`).innerHTML += showTasksOnBoardHTML(index, element);
-        if (element.subtask.length > 0) {
+        document.getElementById(`${element.status.title}`).innerHTML += showTasksOnBoardHTML(index, element);
+        if (element.subtasks.length > 0) {
             document.getElementById(`progressField${index}`).innerHTML += renderProgressBar(index, element);
             getDoneSubtasks(index)
         }
@@ -50,7 +50,7 @@ function showTheMovingBox(i) {
  * renders the pic shown on mobile for moving the task to different stati
  */
 function renderTheMovingPic(i) {
-    document.getElementById(`box${i}`).innerHTML += `<img class="moveIt" id="moveIt${tasks[i].id}" onclick="event.stopPropagation();showTheMovingBox(${i})" src="assets/img/icons8-bewegen.png" alt=""></img>`;
+    document.getElementById(`box${i}`).innerHTML += `<img class="moveIt" id="moveIt${this.tasks[i].id}" onclick="event.stopPropagation();showTheMovingBox(${i})" src="assets/img/icons8-bewegen.png" alt=""></img>`;
 }
 
 /**
@@ -59,8 +59,9 @@ function renderTheMovingPic(i) {
  * @param {*} area the area which needs the right background-color
  */
 function renderBg(index, area) {
-    let count = getTheRightBgColor(tasks[index].category);
-    let bgColor = categories[count].categoryColor;
+    let count = getTheRightBgColor(this.tasks[index].category);
+    // let bgColor = categories[count].color;
+    let bgColor = this.tasks[index].category.color
     document.getElementById(`${area}${index}`).style.backgroundColor = bgColor;
 }
 
@@ -80,9 +81,11 @@ async function delay() {
  * @param {*} element the active task
  */
 function renderContactsOnBoard(i, element) {
+   
     document.getElementById(`assignToBoard${i}`).innerHTML = ``;
     let some = [];
-    some = element.assignedTo
+    some = element.assigned
+    console.log('some:', some);
     let contactsLeft;
     let countIt = some.length
     if (some.length > 3) {
