@@ -22,9 +22,14 @@ window.onload = async function() {
 }
 
 async function downloadFromServer() {
-    let result = await loadJSONFromServer();
-    jsonFromServer = JSON.parse(result);
-    // console.log('Loaded', result);
+    // let result = await loadJSONFromServer();
+    // jsonFromServer = JSON.parse(result);
+    // console.log('Load', result);
+   
+    let response = await fetch(BASE_SERVER_URL + '/tasks/');
+    return await response.json();
+     
+        
 }
 
 function setURL(url) {
@@ -37,7 +42,7 @@ function setURL(url) {
  */
 
 async function loadJSONFromServer() {
-    let response = await fetch(BASE_SERVER_URL + '/nocors.php?json=database&noache=' + (new Date().getTime()));
+    let response = await fetch(BASE_SERVER_URL + '/tasks');
     return await response.text();
 
 }

@@ -2,10 +2,12 @@
  * displays the tasks overview on the board and the placeholder areas for dropping tasks
  */
 function renderCompleteBoard() {
-    for (let index = 0; index < tasks.length; index++) {
-        const element = tasks[index];
+    console.log(this.tasks);
+    for (let index = 0; index < this.tasks.length; index++) {
+        const element = this.tasks[index];
+        console.log('element:', element);
         document.getElementById(`${element.status}`).innerHTML += showTasksOnBoardHTML(index, element);
-        if (element.subtasks.length > 0) {
+        if (element.subtask.length > 0) {
             document.getElementById(`progressField${index}`).innerHTML += renderProgressBar(index, element);
             getDoneSubtasks(index)
         }

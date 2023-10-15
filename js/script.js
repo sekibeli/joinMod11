@@ -1,16 +1,21 @@
 let logOutShown = false;
+window.tasks = [];
 
 /**
  * fetches the JSON from backend and put it in the arrays tasks, contacts, categories
  */
 async function init() {
-    setURL('https://julia-georgiew.developerakademie.net/joinsingle/smallest_backend_ever');
-    await downloadFromServer();
-    tasks = JSON.parse(backend.getItem('tasks')) || [];
-    contacts = JSON.parse(backend.getItem('contacts')) || [];
-    categories = JSON.parse(backend.getItem('categories')) || [];
-    users = JSON.parse(backend.getItem('users')) || [];
-    activeUser = JSON.parse(backend.getItem('activeUser')) || [];
+    setURL('http://127.0.0.1:8000');
+    await downloadFromServer().then((tasks)=> {
+        this.tasks = tasks;
+        console.log('Tasks:', tasks);
+    });
+  
+    // tasks = JSON.parse(backend.getItem('tasks')) || [];
+    // contacts = JSON.parse(backend.getItem('contacts')) || [];
+    // categories = JSON.parse(backend.getItem('categories')) || [];
+    // users = JSON.parse(backend.getItem('users')) || [];
+    // activeUser = JSON.parse(backend.getItem('activeUser')) || [];
 
 
 }
