@@ -86,8 +86,9 @@ function renderNewCategoryHTML() {
 
 
 function renderCategoriesHTML(index, element) {
+  console.log(element);
   return `
-      <div class="duo" <span id="${index}" class="item" onclick="selectCategory(${index})">${element.categoryName}</span><span class="circle" style="background-color: ${element.categoryColor};"></span></div>`;
+      <div class="duo" <span id="${index}" class="item" onclick="selectCategory(${index})">${element.title}</span><span class="circle" style="background-color: ${element.color};"></span></div>`;
 }
 
 function renderColorSpotsHTML(index, element) {

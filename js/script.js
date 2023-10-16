@@ -1,5 +1,7 @@
 let logOutShown = false;
 window.tasks = [];
+window.categories = [];
+window.contacts = [];
 
 /**
  * fetches the JSON from backend and put it in the arrays tasks, contacts, categories
@@ -9,6 +11,14 @@ async function init() {
     await downloadFromServer().then((tasks)=> {
         this.tasks = tasks;
         console.log('Tasks:', tasks);
+    });
+    await downloadCategoriesFromServer().then((categories)=> {
+        this.categories = categories;
+        console.log('Categories:', categories);
+    });
+    await downloadContactsFromServer().then((contacts)=> {
+        this.contacts = contacts;
+        console.log('Contacts:', contacts);
     });
   
     // tasks = JSON.parse(backend.getItem('tasks')) || [];

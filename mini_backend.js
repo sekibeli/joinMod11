@@ -32,6 +32,18 @@ async function downloadFromServer() {
         
 }
 
+async function downloadCategoriesFromServer(){
+    let response = await fetch(BASE_SERVER_URL + '/categories/');
+    return await response.json();
+     
+}
+
+async function downloadContactsFromServer(){
+    let response = await fetch(BASE_SERVER_URL + '/contacts/');
+    return await response.json();
+     
+}
+
 function setURL(url) {
     BASE_SERVER_URL = url;
 }
@@ -43,7 +55,7 @@ function setURL(url) {
 
 async function loadJSONFromServer() {
     let response = await fetch(BASE_SERVER_URL + '/tasks');
-    return await response.text();
+    return await response.json();
 
 }
 
@@ -81,30 +93,46 @@ function loadJSONFromServerOld() {
 /**
  * Saves a JSON or JSON Array to the Server
  */
+// function saveJSONToServer() {
+//     return new Promise(function(resolve, reject) {
+//         let xhttp = new XMLHttpRequest();
+//         let proxy = determineProxySettings();
+//         let serverURL = proxy + BASE_SERVER_URL + '/save_json.php';
+//         xhttp.open('POST', serverURL);
+
+//         xhttp.onreadystatechange = function(oEvent) {
+//             if (xhttp.readyState === 4) {
+//                 if (xhttp.status >= 200 && xhttp.status <= 399) {
+//                     resolve(xhttp.responseText);
+//                 } else {
+//                     reject(xhttp.statusText);
+//                 }
+//             }
+//         };
+
+//         xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+//         xhttp.send(JSON.stringify(jsonFromServer));
+
+//     });
+// }
+
 function saveJSONToServer() {
-    return new Promise(function(resolve, reject) {
-        let xhttp = new XMLHttpRequest();
-        let proxy = determineProxySettings();
-        let serverURL = proxy + BASE_SERVER_URL + '/save_json.php';
-        xhttp.open('POST', serverURL);
-
-        xhttp.onreadystatechange = function(oEvent) {
-            if (xhttp.readyState === 4) {
-                if (xhttp.status >= 200 && xhttp.status <= 399) {
-                    resolve(xhttp.responseText);
-                } else {
-                    reject(xhttp.statusText);
-                }
-            }
-        };
-
-        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        xhttp.send(JSON.stringify(jsonFromServer));
-
-    });
+    fetch('/tasks/', {  // Passen Sie die URL entsprechend Ihrer Konfiguration an
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(task),
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Hier können Sie die Antwort vom Server verarbeiten, z.B. die ID des erstellten Tasks verwenden
+          console.log('Task erstellt:', data);
+        })
+        .catch(error => {
+          console.error('Fehler beim Erstellen des Tasks:', error);
+        });
 }
-
-
 function determineProxySettings() {
     return '';
 

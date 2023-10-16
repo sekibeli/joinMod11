@@ -102,13 +102,27 @@ function renderContactsOnBoard(i, element) {
  * @param {*} countIt the amount of assigned contacts
  * @param {*} some 
  */
-function renderNameCircles(i, countIt, some) {
-    for (let j = 0; j < countIt; j++) {
-        const element = some[j];
-        document.getElementById(`assignToBoard${i}`).innerHTML += `<div class="bigNameCircle bg${element.color}" >${element.initial}</div>`;
+// function renderNameCircles(i, countIt, some) {
+//     for (let j = 0; j < countIt; j++) {
+//         const element = some[j];
+//         console.log('initials:', element);
+//         console.log(this.contacts[1].initials);
+//         document.getElementById(`assignToBoard${i}`).innerHTML += `<div class="bigNameCircle" style="background-color: ${element.color}" >${element.initials}</div>`;
+//     }
+// }
+
+function renderNameCircles(i, task, contacts) {
+    const assignedIds = contacts; // z.B. [2, 3] für task[0]
+console.log('task:', assignedIds);
+    for (let j = 0; j < assignedIds.length; j++) {
+        const assignedId = assignedIds[j];
+        const contact = this.contacts.find(c => c.id === assignedId);
+        if (contact) {
+            console.log('initials:', contact.initials);
+            document.getElementById(`assignToBoard${i}`).innerHTML += `<div class="bigNameCircle" style="background-color: ${contact.color}" >${contact.initials}</div>`;
+        }
     }
 }
-
 /**
  * 
  * @param {*} status 

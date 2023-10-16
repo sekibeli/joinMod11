@@ -13,13 +13,13 @@ function renderProgressBar(index, element) {
 function showTasksOnBoardHTML(index, element) {
     return `
     <div class="box" id="box${index}"  onclick="showTask(${element.id})" draggable="true" ondragstart="startDragging(${element.id})">
-        <div class="category" id="categoryBgColor${index}">${element.category}</div>
+        <div class="category" id="categoryBgColor${index}">${element.category.title}</div>
         <div class="title">${element.title}</div>
         <div class="description">${element.description}</div>
 <div id="progressField${index}"></div>
     <div class="oneRow">
         <div id="assignToBoard${index}" class="assignTo"></div>
-        <img src="assets/img/${element.priority}.svg">
+        <img src="assets/img/${element.priority.title}.svg">
 </div>` ;
 }
 

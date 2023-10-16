@@ -74,30 +74,48 @@ function checkAllInputs(title, description, category) {
   return totalOK;
 }
 
-/**
- * 
- * @param {*} autoID 
- * @param {*} title 
- * @param {*} description 
- * @param {*} duedate 
- * @param {*} prio 
- * @param {*} category 
- * @param {*} para status
- * @returns a new single task
- */
+// /**
+//  * 
+//  * @param {*} autoID 
+//  * @param {*} title 
+//  * @param {*} description 
+//  * @param {*} duedate 
+//  * @param {*} prio 
+//  * @param {*} category 
+//  * @param {*} para status
+//  * @returns a new single task
+//  */
+// function createSingleTask(autoID, title, description, duedate, prio, category, para) {
+//   let task = {
+//     'id': autoID,
+//     'status': para,
+//     'title': title.value,
+//     'description': description.value,
+//     'duedate': duedate.value,
+//     'priority': prio,
+//     'assigned': getAssignedContacts(),
+//     'category': category.textContent,
+//     'subtasks': getSubtasks()
+//   }
+//   return task;
+// }
+
+
+
+
 function createSingleTask(autoID, title, description, duedate, prio, category, para) {
   let task = {
-    'id': autoID,
-    'status': para,
     'title': title.value,
     'description': description.value,
     'duedate': duedate.value,
     'priority': prio,
-    'assignedTo': getAssignedContacts(),
-    'category': category.textContent,
-    'subtasks': getSubtasks()
+    'category': category.value,  
+      'assigned': getAssignedContacts(),
+        'category': category.textContent,
+        'subtasks': getSubtasks()
   }
-  return task;
+return task;
+
 }
 
 /**
